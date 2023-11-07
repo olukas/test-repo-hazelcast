@@ -4,10 +4,6 @@ on:
     branches:
       - "master"
       - "[0-9]+.[0-9]+.z"
-      - "[0-9]+.[0-9]+.[0-9]"
-      - "[0-9]+.[0-9]+.[0-9]+-BETA-[0-9]+"
-      - "[0-9]+.[0-9]+.[0-9]+-DEVEL-[0-9]+"
-      - "data-migration-5.3"
     types:
       - reopened
       - opened
@@ -40,7 +36,7 @@ jobs:
             fi
           done <<< "$CONTENT"
         env:
-          GH_TOKEN: ${{ secrets.DEVOPSHAZELCAST_PAT_FOR_MONOREPO }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN_WITH_PR_PERMISSIONS }}
       - name: Generate copybara config file
         run: |
           sed -e 's#<branch_to_sync>#${{ env.branch_to_sync }}#' \
@@ -51,13 +47,13 @@ jobs:
         name: "Copybara PR #${{ github.event.pull_request.number }} -> ${{ env.branch_to_sync }}"
         with:
           ssh_key: ${{ secrets.GH_DEVOPSHAZELCAST_SSH_KEY }}
-          access_token: ${{ secrets.DEVOPSHAZELCAST_PAT_FOR_MONOREPO }}
+          access_token: ${{ secrets.GH_TOKEN }}
           sot_repo: ${{ env.sot_repo }}
           sot_branch: ${{ env.branch_to_sync }}
           destination_repo: ${{ env.destination_repo }}
           copybara_options: "--nogit-destination-rebase"
           custom_config: .github/workflows/os-pr.sky
-      - name: Copy labels, assignees, reviewers, milestone to other PR
+      - name: Copy labels and milestone to other PR
         run: |
           SOURCE_REPO="${{ github.repository }}"
           SOURCE_PR="${{ github.event.pull_request.number }}"
@@ -68,10 +64,8 @@ jobs:
               TARGET_REPO="${BASH_REMATCH[1]}"
               TARGET_PR="${BASH_REMATCH[2]}"
               .github/workflows/common-synchronize-pr-labels.sh $SOURCE_REPO $SOURCE_PR $TARGET_REPO $TARGET_PR
-              .github/workflows/common-synchronize-pr-assignees.sh $SOURCE_REPO $SOURCE_PR $TARGET_REPO $TARGET_PR
-              .github/workflows/common-synchronize-pr-reviewers.sh $SOURCE_REPO $SOURCE_PR $TARGET_REPO $TARGET_PR
               .github/workflows/common-synchronize-pr-milestone.sh $SOURCE_REPO $SOURCE_PR $TARGET_REPO $TARGET_PR
             fi
           done <<< "$CONTENT"
         env:
-          GH_TOKEN: ${{ secrets.DEVOPSHAZELCAST_PAT_FOR_MONOREPO }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN_WITH_PR_PERMISSIONS }}

@@ -4,10 +4,6 @@ on:
       branches:
          - "master"
          - "[0-9]+.[0-9]+.z"
-         - "[0-9]+.[0-9]+.[0-9]"
-         - "[0-9]+.[0-9]+.[0-9]+-BETA-[0-9]+"
-         - "[0-9]+.[0-9]+.[0-9]+-DEVEL-[0-9]+"
-         - "data-migration-5.3"
       types:
          - labeled
          - unlabeled
@@ -30,4 +26,4 @@ jobs:
                 fi
               done <<< "$CONTENT"
            env:
-              GH_TOKEN: ${{ secrets.DEVOPSHAZELCAST_PAT_FOR_MONOREPO }}
+              GH_TOKEN: ${{ secrets.GH_TOKEN_WITH_PR_PERMISSIONS }}

@@ -9,7 +9,7 @@
 
 ----
 
-## What is Hazelcast ???
+## What is Hazelcast
 
 Hazelcast is a distributed computation and storage platform for consistently
 low-latency querying, aggregation and stateful computation against event streams
