@@ -54,7 +54,7 @@ jobs:
           destination_repo: ${{ env.destination_repo }}
           copybara_options: "--nogit-destination-rebase"
           custom_config: .github/workflows/os-pr.sky
-      - name: Copy labels, assignees, milestone to other PR
+      - name: Copy labels, assignees, reviewers, milestone to other PR
         run: |
           SOURCE_REPO="${{ github.repository }}"
           SOURCE_PR="${{ github.event.pull_request.number }}"
@@ -66,6 +66,7 @@ jobs:
               TARGET_PR="${BASH_REMATCH[2]}"
               .github/workflows/common-synchronize-pr-labels.sh $SOURCE_REPO $SOURCE_PR $TARGET_REPO $TARGET_PR
               .github/workflows/common-synchronize-pr-assignees.sh $SOURCE_REPO $SOURCE_PR $TARGET_REPO $TARGET_PR
+              .github/workflows/common-synchronize-pr-reviewers.sh $SOURCE_REPO $SOURCE_PR $TARGET_REPO $TARGET_PR
               .github/workflows/common-synchronize-pr-milestone.sh $SOURCE_REPO $SOURCE_PR $TARGET_REPO $TARGET_PR
             fi
           done <<< "$CONTENT"
