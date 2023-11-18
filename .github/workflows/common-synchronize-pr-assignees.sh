@@ -34,7 +34,7 @@ if [ -n "$ASSIGNEES_TO_ADD" ] || [ -n "$ASSIGNEES_TO_REMOVE" ]; then
   echo "Adding assignees: $ASSIGNEES_TO_ADD"
   echo "Removing assignees: $ASSIGNEES_TO_REMOVE"
   gh pr edit --repo $TARGET_REPO $TARGET_PR --add-assignee "$ASSIGNEES_TO_ADD" --remove-assignee "$ASSIGNEES_TO_REMOVE"
-  echo "assignees synchronized from PR $SOURCE_PR to PR $TARGET_PR"
+  echo "Assignees synchronized from PR $SOURCE_PR to PR $TARGET_PR"
 else
   echo "No assignee changes detected. Skipping."
 fi
