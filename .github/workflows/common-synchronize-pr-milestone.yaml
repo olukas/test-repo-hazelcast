@@ -4,6 +4,7 @@ on:
       branches:
          - "master"
          - "[0-9]+.[0-9]+.z"
+         - "data-migration-5.3"
       types:
          - milestoned
          - demilestoned
@@ -26,4 +27,4 @@ jobs:
                 fi
               done <<< "$CONTENT"
            env:
-              GH_TOKEN: ${{ secrets.GH_TOKEN_WITH_PR_PERMISSIONS }}
+              GH_TOKEN: ${{ secrets.DEVOPSHAZELCAST_PAT_FOR_MONOREPO }}
