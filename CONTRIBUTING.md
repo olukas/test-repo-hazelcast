@@ -1,4 +1,4 @@
-# Contributing to Hazelcast
+# Contributing to Hazelcast!
 
 Hazelcast is Open Source software, licensed under the [Apache 2.0. license](LICENSE).
 The main benefit of Open Source is that you don't need to wait for a vendor to provide a fix or a feature.
